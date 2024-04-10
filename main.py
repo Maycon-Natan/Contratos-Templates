@@ -3,7 +3,7 @@ from docxtpl import DocxTemplate, InlineImage, RichText
 import requests
 import streamlit as st
 from datetime import date
-
+import io
 
 
 #docx
@@ -48,10 +48,20 @@ def manipularArquivo(dados, estado_civil, rg, cpf,nome_arquivo, inicio_contrato)
     modelo.render(parametros)
     saida = f'{nome_arquivo}.docx'
     try:
-        modelo.save(saida)
+        #modelo.save(saida)
         # word = win32com.client.Dispatch("Word.Application")
         # word.Documents.Open(saida)
         # word.Visible  = True
+
+        bio = io.BytesIO()
+        modelo.save(bio)
+        if doc_download:
+            ui.st.download_button(
+                label="Click here to download",
+                data=bio.getvalue(),
+                file_name="Report.docx",
+                mime="docx"
+            )
         print('Fim.')
     except:
         print('Nao foi possível salvar o relatório; verifique se o arquivo não está aberto.')
@@ -73,6 +83,8 @@ def ui():
     nome_arquivo = st.text_input('Nome do Arquivo','')
     inicio_contrato = st.date_input("Data de inicio de Contrato", date.today(), format="DD/MM/YYYY")
 
+
+
     if st.button('Gerar Contrato'):
         dados = consultarApi(cnpj)
         
@@ -90,6 +102,7 @@ def ui():
             # }
             #st.write(parametros)
             manipularArquivo(dados, estado_civil, rg, cpf, nome_arquivo, inicio_contrato)
+            
         else:
             st.write('CNPJ inválido')
 
