@@ -1,4 +1,3 @@
-from docx import Document
 from docxtpl import DocxTemplate, InlineImage, RichText
 import requests
 import streamlit as st
