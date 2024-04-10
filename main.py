@@ -102,9 +102,9 @@ def ui():
             manipularArquivo(dados, estado_civil, rg, cpf, nome_arquivo, inicio_contrato)
             
             st.download_button(
-                label="Click here to download",
+                label="Clique aqui para fazer o download",
                 data=url,
-                file_name="nome_arquivo.docx",
+                file_name=f'{nome_arquivo}.docx',
                 mime="docx"
             )
             
