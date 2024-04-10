@@ -34,7 +34,7 @@ def manipularArquivo(dados, estado_civil, rg, cpf,nome_arquivo, inicio_contrato)
 
     parametros = {
     'nome_empresa' : dados['razao_social'],
-    'endereço': f'{estabelecimento['tipo_logradouro']} {estabelecimento["logradouro"]}, {estabelecimento["numero"]}, Bairro: {estabelecimento["bairro"]}, CEP: {estabelecimento["cep"]}',
+    'endereço': f'{estabelecimento["tipo_logradouro"]} {estabelecimento["logradouro"]}, {estabelecimento["numero"]}, Bairro: {estabelecimento["bairro"]}, CEP: {estabelecimento["cep"]}',
     'cnpj' : estabelecimento['cnpj'],
     'representante' : dados['socios'][0]['nome'],
     'nacionalidade' : dados['socios'][0]['pais']['nome'],
