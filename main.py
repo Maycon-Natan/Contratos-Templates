@@ -14,6 +14,7 @@ import io
 # documento.save("Contrato-Contabilidade-Editado.docx")
 
 #docxtpl
+global url 
 
 def consultarApi(cnpj):
     url = f'https://publica.cnpj.ws/cnpj/{cnpj}'
@@ -54,13 +55,11 @@ def manipularArquivo(dados, estado_civil, rg, cpf,nome_arquivo, inicio_contrato)
 
         bio = io.BytesIO()
         modelo.save(bio)
-        if doc_download:
-            ui.st.download_button(
-                label="Click here to download",
-                data=bio.getvalue(),
-                file_name="Report.docx",
-                mime="docx"
-            )
+        print(bio)
+        if modelo:
+            global url 
+            url = bio.getvalue()
+            
         print('Fim.')
     except:
         print('Nao foi possível salvar o relatório; verifique se o arquivo não está aberto.')
@@ -101,6 +100,13 @@ def ui():
             # }
             #st.write(parametros)
             manipularArquivo(dados, estado_civil, rg, cpf, nome_arquivo, inicio_contrato)
+            
+            st.download_button(
+                label="Click here to download",
+                data=url,
+                file_name="nome_arquivo.docx",
+                mime="docx"
+            )
             
         else:
             st.write('CNPJ inválido')
